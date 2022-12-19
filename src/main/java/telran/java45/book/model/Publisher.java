@@ -1,9 +1,11 @@
 package telran.java45.book.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,8 +23,16 @@ public class Publisher implements Serializable {
 	private static final long serialVersionUID = -1029307134657778949L;
 	@Id
 	String publisherName;
+	@OneToMany(mappedBy = "publisher")
+	Set<Book> books;
+
+	public Publisher(String publisherName) {
+		this.publisherName = publisherName;
+	}
+
 	@Override
 	public String toString() {
 		return publisherName;
 	}
+
 }

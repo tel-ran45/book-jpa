@@ -2,9 +2,12 @@ package telran.java45.book.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,9 +21,17 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = "name")
 @Entity
-public class Author implements Serializable{
+public class Author implements Serializable {
 	private static final long serialVersionUID = -247771267928159854L;
 	@Id
 	String name;
 	LocalDate birthDate;
+	@ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+	Set<Book> books;
+
+	public Author(String name, LocalDate birthDate) {
+		this.name = name;
+		this.birthDate = birthDate;
+	}
+
 }
